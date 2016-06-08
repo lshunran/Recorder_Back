@@ -9,6 +9,9 @@ router.get('/', interface.info);
 router.post('/login',interface.login);
 
 //register
-router.post('/reg',interface.reg)
+router.post('/reg',interface.reg);
+
+//get friends rank
+router.get('/rank',interface.rank);
 
 module.exports = router;
