@@ -15,6 +15,12 @@ router.post('/reg',interface.reg);
 router.post('/rank',interface.rank);
 
 //get friends list
+router.post('/list',interface.list);
 
+//add friends
+router.post('/add',interface.add);
+
+//search friends
+router.post('/search',interface.search);
 
 module.exports = router;

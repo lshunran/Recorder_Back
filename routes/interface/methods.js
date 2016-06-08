@@ -53,3 +53,56 @@ exports.rank = function(req, res, next){
 
 	});
 }
+
+exports.list = function(req, res, next){
+	var data = req.body;
+	Friends.list(data).done(function(data){
+		if(data){
+		res.json({
+			errCode: 0,
+			FriendList: data
+		})
+	}else{
+		res.json({
+			errCode: 1
+		})
+	}
+
+	});
+}
+
+exports.add = function(req, res, next){
+	var data = req.body;
+	Friends.add(data).done(function(data){
+		if(!data){
+		res.json({
+			errCode: 0,
+			//FriendList: data
+		})
+	}else{
+		res.json({
+			errCode: 1
+		})
+	}
+
+	});
+}
+
+exports.search = function(req, res, next){
+	var data = req.body;
+	Friends.search(data).done(function(data){
+		if(data){
+		res.json({
+			errCode: 0,
+			isExist: data
+			//FriendList: data
+		})
+	}else{
+		res.json({
+			errCode: 0,
+			isExist: data
+		})
+	}
+
+	});
+}
