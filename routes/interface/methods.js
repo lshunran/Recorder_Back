@@ -1,5 +1,7 @@
 var Q = require('q');
 var User = require('./User');
+var Friends = require('./Friends');
+
 
 
 
@@ -37,14 +39,15 @@ exports.reg = function(req, res, next){
 
 exports.rank = function(req, res, next){
 	var data = req.body;
-	User.rank(data).done(function(data){
-		if(!data){
+	Friends.rank(data).done(function(data){
+		if(data){
 		res.json({
-			errCode: 0
+			errCode: 0,
+			FriendList: data
 		})
 	}else{
 		res.json({
-			errCode: data
+			errCode: 1
 		})
 	}
 
