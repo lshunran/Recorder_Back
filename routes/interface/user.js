@@ -53,7 +53,7 @@ User.login = function(data){
 	var resultList = [];
 	UserRef.once('value', function(snapshot){
 		snapshot.forEach(function(snap){
-			if(snap.child("userName").val() == data.username){
+			if(snap.child("phone").val() == data.phoneNumber){
 				if(snap.child("password").val() == data.password){
 					userId = snap.key();
 					resultItem.errCode = 0;
