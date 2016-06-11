@@ -1,9 +1,6 @@
 var Q = require('q');
-var User = require('./User');
-var Friends = require('./Friends');
-
-
-
+var User = require('./user');
+var Friends = require('./friends');
 
 
 exports.info = function(req, res, next){
