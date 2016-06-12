@@ -58,17 +58,37 @@ Friends.add = function(data){
 	var deferred = Q.defer();
 	var username = null;
 	var score = null;
-	UserRef.child(data.addPhoneNumber).on('value', function(snapshot){
-		username = snapshot.child("userName").val();
-		score = snapshot.child("score").val();
-		UserRef.child(data.phoneNumber).child("friendList").child(data.addPhoneNumber).set({
+	var listItem = new Friends();
+	var list = [];
+	UserRef.child(data.phoneNumber).once('value', function(snapshot){
+		if (snapshot.child("friendList").child(data.addPhoneNumber).exists()) {
+			listItem.errCode = 1;
+			//list.push(listItem);
+			deferred.resolve(listItem);
+		}else{
+			UserRef.child(data.addPhoneNumber).once('value', function(snapshot){
+			username = snapshot.child("userName").val();
+			score = snapshot.child("score").val();
+			UserRef.child(data.phoneNumber).child("friendList").child(data.addPhoneNumber).set({
 			phone: data.addPhoneNumber,
 			score: score,
 			username: username
 		},function(err){
-			deferred.resolve(err);
+			if(!err){
+				listItem.errCode = 0;
+				listItem.phoneNumber = data.addPhoneNumber;
+				listItem.score = score;
+				listItem.username = username;
+				//list.push(listItem);
+				deferred.resolve(listItem);
+			}
 		})
 	});
+
+		}
+	})
+	
+
 	return deferred.promise;
 }
 

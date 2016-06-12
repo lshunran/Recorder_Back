@@ -23,4 +23,10 @@ router.post('/add',interface.add);
 //search friends
 router.post('/search',interface.search);
 
+//user add habit
+router.post('/addhabit',interface.addhabit);
+
+//user update habit
+router.post('/updatehabit',interface.updatehabit);
+
 module.exports = router;
