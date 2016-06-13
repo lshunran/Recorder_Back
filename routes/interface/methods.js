@@ -130,3 +130,17 @@ exports.updatehabit = function(req, res, next){
 
 	});
 }
+
+exports.gethabit = function(req, res, next){
+	var data = req.body;
+	User.gethabit(data).done(function(data){
+		if(data){
+		res.json(data)
+	}else{
+		res.json({
+			errCode: 1
+		})
+	}
+
+	});
+}

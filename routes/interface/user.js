@@ -51,6 +51,7 @@ User.login = function(data){
 	var list = [];
 	var resultItem = new User();
 	var resultList = [];
+	var friendList = [];
 	UserRef.once('value', function(snapshot){
 		snapshot.forEach(function(snap){
 			if(snap.child("phone").val() == data.phoneNumber){
@@ -60,6 +61,12 @@ User.login = function(data){
 					resultItem.username = snap.child("userName").val();
 					resultItem.score = snap.child("score").val();
 					resultItem.token = null;
+					UserRef.child(data.phoneNumber).child("friendList").once('value', function(snapshot){
+						snapshot.forEach(function(snap){
+							friendList.push(snap.val());
+						})
+						resultItem.friendList = friendList;
+					});
 					HabitRef.once('value', function(snapshot){
 						snapshot.forEach(function(snap){
 							console.log(userId);
@@ -77,9 +84,11 @@ User.login = function(data){
 							 }
 						})
 						resultItem.HabitList = list;
-						resultList.push(resultItem);
-						deferred.resolve(resultList);
+						//resultList.push(resultItem);
+						deferred.resolve(resultItem);
+						
 					})
+					
 					return deferred.promise;
 				}else{
 					deferred.resolve("wrong password.");
@@ -141,6 +150,38 @@ User.updatehabit = function(data){
 	})
 	return deferred.promise;
 }
+
+User.gethabit = function(data){
+	var deferred = Q.defer();
+	var result = new User();
+	var habits = [];
+	//var result = [];
+	HabitRef.once('value', function(snapshot){
+		snapshot.forEach(function(snap){
+			if(snap.child("id").val() == data.phoneNumber){
+				habits.push(snap.val());
+			}
+		})
+		result.errCode = 0;
+		result.habitList = habits;
+		deferred.resolve(result);
+	})
+	return deferred.promise;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

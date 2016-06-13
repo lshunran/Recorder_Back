@@ -29,4 +29,7 @@ router.post('/addhabit',interface.addhabit);
 //user update habit
 router.post('/updatehabit',interface.updatehabit);
 
+//get habit by phoneNumber
+router.post('/gethabit',interface.gethabit);
+
 module.exports = router;
